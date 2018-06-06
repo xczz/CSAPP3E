@@ -1,0 +1,84 @@
+esi = 0x402400
+strings_not_equal()
+if(eax == 0)
+    done
+else
+    bomb()
+
+//prin (char*)0x402400 = "Border relations with Canada have never been better."
+
+//strings_not_equal(input,esi)
+rbx = rdi
+rbp = rsi
+string_length()       //返回字符串长度
+r12d = eax            //r12d = strlen(rdi) //rdi -> input
+rdi = rbp
+string_length()
+edx = 0x1               
+if(r12d != eax)       //eax = strlen(rsi) //rsi -> 0x402400 
+{
+    eax = edx         //return 1
+    return            //字符串长度不相等返回1
+}
+else
+{
+    eax = (rbx)       //0x40137a
+    if(al == 0)  
+    {
+        edx = 0
+        eax = edx
+        return
+    }
+    else
+    {
+        if(al == (rbp))
+        {
+            rbx = rbx + 1       //0x401372
+            rbp = rbp + 1
+            eax = (rbx)
+            if(al != 0)
+            {
+                if(al != (rbp))
+                {
+                    edx = 1
+                    eax = edx
+                    return
+                }
+                else            //逐个字符比较，直到'\0'
+                    //jmp 0x401372
+            }
+            else
+            {
+                edx = 0
+                eax = edx
+                return
+            }
+        }
+        else
+        {
+            edx = 1
+            eax = edx       //return 1
+            return        
+        }
+    }
+}
+
+
+
+//string_length
+if((rdi) == 0)
+{
+    eax = 0x0
+    return
+}
+else
+{
+    rdx = rdi
+    rdx = rdx + 1 //0x401323
+    eax = edx
+    eax = eax - edi
+    if((rdx) != 0)
+        //jmp 0x401323
+    else
+        return
+}

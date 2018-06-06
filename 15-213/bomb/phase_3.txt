@@ -1,0 +1,32 @@
+rcx = rsp + 0xc
+rdx = rsp + 0x8
+esi = 0x4025cf
+//
+prin (char*)0x4025cf = "%d %d"
+存放输入的2个数的地址
+0x8 + rsp
+0xc + rsp
+//
+eax = 0
+sscanf()
+if(eax > 1)
+{
+    if((0x8 + rsp) > 0x7)
+        bomb()
+    else
+    {
+        eax = (rsp + 0x8)
+        //jmp *(8 * rax + 0x402470) 
+        //有多种组合，只要第一个数小于等于7且大于等于0即可
+        //assume eax = 0x1
+        //x/1w 0x402478 = 0x400fb9
+        //then jmp 0x400fb9
+        eax = 0x137
+        if((rsp + 0xc) == eax)
+            return
+        else
+            bomb()
+    }
+}
+else
+    bomb()

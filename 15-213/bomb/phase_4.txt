@@ -1,0 +1,70 @@
+rcx = rsp + 0xc
+rdx = rsp + 0x8
+esi = 0x4025cf
+//
+prin (char*)0x4025cf = "%d %d"
+存放输入2个数的地址
+rsp + 0x8
+rsp + 0xc
+//
+eax = 0
+sscanf()
+if(eax == 0x2)
+{
+    if((rsp + 0x8) > 0xe)   //第1个数小于等于0xe
+        bomb()
+    else
+    {
+        edx = 0xe
+        esi = 0x0
+        edi = (rsp + 0x8)
+        func4()         //传入3个参数
+        if(eax != 0)
+            bomb()
+        else
+        {
+            if((rsp + 0xc) == 0x0) //第2个数为0
+                return 
+            else
+                bomb()
+        }
+    }
+}
+else
+    bomb()
+
+//func4()
+eax = edx
+eax = eax - esi   //eax = edx - esi
+ecx = eax
+ecx = ecx >> 31   //logical//ecx -> sign bit
+eax = eax + ecx
+eax = eax >> 1    //arithmetic
+ecx = rax + rsi
+if(ecx <= edi)
+{
+    eax = 0
+    if(ecx >= edi)  //ecx == edi
+        return
+    else
+    {
+        esi = rcx + 0x1
+        fun4()
+        eax = 2 * rax + 1   //if reach, bomb()
+        return
+    }
+}
+else
+{
+    edx = rcx - 0x1
+    func4()
+    eax = 2 * eax
+    return
+}
+//
+edi     esi     edx
+7       0       7
+3       0       6
+1       0       2
+0       0       1
+//

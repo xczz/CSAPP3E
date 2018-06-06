@@ -1,0 +1,122 @@
+r13 = rsp
+rsi = rsp
+read_six_numbers()
+r14 = rsp
+r12d = 0
+rbp = r13     //0x401114
+eax = (r13)
+eax = eax - 1
+if(eax > 5)
+    bomb()
+else
+{
+    r12d = r12d + 1
+    if(r12d == 6)
+        //jmp 0x401153
+    else
+    {
+        ebx = r12d
+        rax = ebx //0x401135
+        eax = (4 * rax + rsp)
+        if((rbp) == eax)
+            bomb()
+        else
+        {
+            ebx = ebx + 1
+            if(ebx <= 5)
+                //jmp 0x401135
+            else
+            {
+                r13 = r13 + 4
+                //jmp 0x401114
+            }
+        }
+    }
+}
+
+//0x401153
+rsi = rsp + 0x18
+rax = r14  //rsp
+ecx = 0x7
+do{
+    edx = ecx
+    edx = edx - (rax)
+    (rax) = edx   //(rax) = 7 - (rax)
+    rax = rax + 4
+}while(rax != rsi) 
+
+
+esi = 0
+ecx = (rsp + rsi)
+if(ecx <= 1)
+{
+    edx = 0x6032d0  //0x401183
+    (0x20 + rsp + 2 * rsi) = rdx //0x401188
+    rsi = rsi + 4           //(0x20 + rsp + 2 * rsi) = 
+                             0x6032d0 + 16 * (ecx-1)
+    if(rsi == 18)
+        //jmp 0x4011ab
+    else
+    {
+        ecx = (rsp + rsi)
+        if(ecx <= 1)
+            //jmp 0x401183
+        else
+        {
+            eax = 1
+            edx = 0x6032d0
+            //jmp 0x401176
+        }
+    }
+}
+else
+{
+    eax = 1
+    edx = 0x6032d0
+    //jmp 0x401176
+}
+
+//0x401176
+do{
+    rdx = (8 + rdx)
+    eax = eax + 1
+}while(eax != ecx)
+//jmp 0x401188
+
+
+//0x4011ab
+rbx = (rsp + 0x20) //首地址
+rax = rsp + 0x28
+rsi = rsp + 0x50
+rcx = rbx
+rdx = (rax) //0x4011bd 
+(8 + rcx) = rdx
+rax = rax + 8
+if(rax == rsi)
+{
+    (8 + rdx) = 0
+    ebp = 5
+    rax = (8 + rbx)  //0x4011df
+    eax = (rax)
+    if((rbx) >= eax)        //满足递减
+    {
+        rbx = (rbx + 8)
+        ebp = ebp - 1
+        if(ebp != 0)
+            //jmp 0x4011df
+        else
+        {
+            rsp = rsp + 50
+            done
+        }
+    }
+    else
+        bomb()
+}
+else
+{
+    rcx = rdx
+    //jmp 0x4011bd
+}
+//////
+input:4 3 2 1 6 5

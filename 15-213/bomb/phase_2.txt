@@ -1,0 +1,53 @@
+rsi = rsp
+read_six_numbers()
+if((rsp) == 1)          //第一个数字为1
+{
+    rbx = 0x4 + rsp     //第二个数字地址
+    rbp = 0x18 + rsp    //结束地址
+    eax = (rbx - 0x4)
+    eax = eax + eax
+    if((rbx) == eax)    //看下一个数字是否是上一个数字的2倍
+    {
+        rbx = rbx + 4   
+        if(rbx != rbp)
+            //jmp 0x400f17
+        else
+            return
+    }
+    else
+        bomb()
+}
+else
+    bomb()
+
+
+//read_six_numbers()
+rdx = rsi
+rcx = 0x4 + rsi
+rax = 0x14 + rsi
+(8 + rsp) = rax
+rax = 0x10 + rsi
+(rsp) = rax
+r9 = 0xc + rsi
+r8 = 0x8 + rsi
+esi = 0x4025c3      
+
+//prin (char*)0x4025c3 = "%d %d %d %d %d %d"
+//
+存放六个数字的地址
+rsi
+0x4 + rsi
+0x8 + rsi
+0xc + rsi
+0x10 + rsi
+0x14 + rsi
+//
+
+eax = 0
+sscanf()
+if(eax > 5)
+{
+    return 
+}
+else
+    bomb()
